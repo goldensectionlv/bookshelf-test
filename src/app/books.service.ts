@@ -17,11 +17,16 @@ export class BooksService {
     return this.http.post('/books', book, {observe: 'response'}).toPromise()
   }
 
- getBooks() {
+  getBooks() {
     return this.http.get('/books', {observe: 'response'}).toPromise();
   }
 
   deleteBook(id: number) {
     return this.http.delete('books/' + id, {observe: 'response'}).toPromise()
   }
+
+  updateBook(book: any) {
+    return this.http.patch('/books/' + book.id, book,{observe: 'response'}).toPromise()
+  }
+
 }

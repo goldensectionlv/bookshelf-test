@@ -6,8 +6,6 @@
 
     <form (ngSubmit)="formType === 'create' ? createBook() : editBook()" #isFormOk="ngForm">
 
-      <div>
-      </div>
       <div class="formGroup">
         <label for="book-name"></label>
         <input type="text"
@@ -73,7 +71,7 @@
       <button class="formBtn zoom mt-15" (click)="close(formType)">Закрыть</button>
       </div>
     </form>
-    <div *ngIf="formSubmit" class="success-alert">Книга создана</div>
+    <div *ngIf="formSubmit" class="success-alert">{{formType === 'create' ? 'Книга создана' : 'Книга обновлена'}}</div>
     <br>
   </div>
 

@@ -3,10 +3,10 @@ import {BooksService} from "../books.service";
 
 @Component({
   selector: 'app-add-form',
-  templateUrl: './add-form.component.html',
-  styleUrls: ['./add-form.component.scss']
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss']
 })
-export class AddFormComponent implements OnInit {
+export class FormComponent implements OnInit {
   @Input() addFormActive: boolean = false
   @Input() formType: string = ''
   @Input() inputBook: any = {}
@@ -33,14 +33,22 @@ export class AddFormComponent implements OnInit {
     } catch (error) {
     } finally {
       await this.getBooks.emit()
-      if (this.formType === 'create') {
-        this.randomFillBookForCreate.emit()
-      }
+      if (this.formType === 'create') this.randomFillBookForCreate.emit()
+      this.formSubmit = true
     }
   }
 
-  editBook() {
+  async editBook() {
     // editing
+    console.log(this.inputBook)
+    try {
+      await this.http.updateBook(this.inputBook)
+    } catch (error) {}
+   finally {
+      await this.getBooks.emit()
+      this.formSubmit = true
+    }
+
   }
 
 

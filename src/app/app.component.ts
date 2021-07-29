@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
     this.book = {}
     if (formType === 'patch') {
       this.book = {
+        id: book.id,
         name: book.name,
         author: book.author,
         date: book.date,
@@ -58,7 +59,7 @@ export class AppComponent implements OnInit {
         author: this.randomLetter().toUpperCase() + ' Gevin Belson',
         date: this.randomInt(1969, 2021),
         genreIds: [this.randomInt(1, 7)],
-        description: 'Стандартное описание, чтобы не вводить ручками'
+        description: 'Стандартное описание, чтобы не вводить руками'
       }
     }
   }
@@ -84,6 +85,7 @@ export class AppComponent implements OnInit {
     let response = await this.http.getBooks()
     this.booksArray = response.body
     this.filter_by(this.activeFilter)
+    console.log(this.booksArray)
   }
 
   async ngOnInit() {
