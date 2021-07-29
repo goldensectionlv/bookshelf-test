@@ -1,0 +1,9 @@
+{
+  "localhost:4200": {
+    "target": "https://fosius-books.herokuapp.com",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+
+  }
+}
