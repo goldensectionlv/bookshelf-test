@@ -14,7 +14,7 @@ export class BooksService {
   }
 
   createBook(book: any) {
-    return this.http.post('/books', book).toPromise()
+    return this.http.post('/books', book, {observe: 'response'}).toPromise()
   }
 
  getBooks() {

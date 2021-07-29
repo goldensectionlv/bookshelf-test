@@ -1,8 +1,11 @@
 <div class="addFrom" *ngIf="addFormActive">
 
   <div class="addFormContainer">
-    <div class="addFormContainer__header">Добавить книгу</div>
-    <form (ngSubmit)="createBook()" #isFormOk="ngForm">
+    <div class="addFormContainer__header" *ngIf="formType === 'create'">Добавить книгу</div>
+    <div class="addFormContainer__header" *ngIf="formType === 'patch'">Редактировать книгу</div>
+
+    <form (ngSubmit)="formType === 'create' ? createBook() : editBook()" #isFormOk="ngForm">
+
       <div>
       </div>
       <div class="formGroup">
@@ -10,7 +13,7 @@
         <input type="text"
                required
                #name = 'ngModel'
-               [(ngModel)]="book.name"
+               [(ngModel)]="inputBook.name"
                id="book-name"
                name="name"
                placeholder="Название книги">
@@ -22,7 +25,7 @@
         <input type="text"
                required
                #author = 'ngModel'
-               [(ngModel)]="book.author"
+               [(ngModel)]="inputBook.author"
                id="book-author"
                name="author"
                placeholder="Автор">
@@ -34,7 +37,7 @@
         <input type="text"
                required
                #date = 'ngModel'
-               [(ngModel)]="book.date"
+               [(ngModel)]="inputBook.date"
                id="book-date"
                name="date"
                placeholder="Год издания">
@@ -47,7 +50,7 @@
                 required
                 id="book-genres"
                 #genresIds = 'ngModel'
-                [(ngModel)]="book.genreIds"
+                [(ngModel)]="inputBook.genreIds"
                 name="genreIds"
         >
           <option [ngValue]="genre.id" *ngFor="let genre of genres">{{genre.name[0].toUpperCase() + genre.name.slice(1)}}</option>
@@ -58,16 +61,16 @@
       <div class="formGroup">
         <label for="book-description"></label>
         <textarea type="text"
-                  [(ngModel)]="book.description"
+                  [(ngModel)]="inputBook.description"
                   id="book-description"
                   name="description" rows="6"
                   placeholder="Описание"></textarea>
       </div>
 
       <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
-      <button type="submit" class="formBtn zoom mt-15" [disabled]="!isFormOk.form.valid">Отправить</button>
-      <button class="formBtn zoom mt-15" type="reset">Очистить</button>
-      <button class="formBtn zoom mt-15" (click)="close()">Закрыть</button>
+      <button type="submit" class="formBtn zoom mt-15" [disabled]="!isFormOk.form.valid">{{formType === 'create' ? 'Отправить' : 'Обновить'}}</button>
+      <button class="formBtn zoom mt-15" type="reset" *ngIf="formType === 'create'">Очистить</button>
+      <button class="formBtn zoom mt-15" (click)="close(formType)">Закрыть</button>
       </div>
     </form>
     <div *ngIf="formSubmit" class="success-alert">Книга создана</div>

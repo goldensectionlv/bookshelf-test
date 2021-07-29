@@ -1,34 +1,51 @@
-<app-full-book-card
-  [isActive]="fullBookCardActive"
-  [book]="book"
-  (closeFullCard)="switchFullCard(false)"></app-full-book-card>
+<app-add-form
+  [addFormActive]="fullBookActive"
+  formType="patch"
+  [inputBook]="book"
+  (getBooks)="getBooks()"
+  (switchForm)="switchForm(false, 'patch')"></app-add-form>
 
 <app-add-form
+  formType="create"
+  [inputBook]="book"
   [addFormActive]="addFormActive"
+  (randomFillBookForCreate)="fillBook({}, 'create')"
   (getBooks)="getBooks()"
-  (switchAddForm)="switchAddForm(false)"></app-add-form>
+  (switchForm)="switchForm(false, 'create')"></app-add-form>
 
 <header class="header">
   <h1 class="header__logo">Bookshelf</h1>
   <img src="assets/plus-circle-outline.png"
        class="header__button zoom"
        alt="add"
-       (click)="switchAddForm(true)"
+       (click)="fillBook({}, 'create'); switchForm(true, 'create')"
   >
 </header>
 
 <section class="filters">
   <div class="filters__container">
-    <div class="filters__container__item mr-8 zoom">
+    <div class="filters__container__item mr-8 zoom"
+         [class.filters__container__item-active]="activeFilter === 'По году'"
+         (click)="filter_by('По году')"
+    >
       По году
     </div>
-    <div class="filters__container__item mr-8 zoom">
+    <div class="filters__container__item mr-8 zoom"
+         [class.filters__container__item-active]="activeFilter === 'По автору'"
+         (click)="filter_by('По автору')"
+    >
       По автору
     </div>
-    <div class="filters__container__item mr-8 zoom">
+    <div class="filters__container__item mr-8 zoom"
+         [class.filters__container__item-active]="activeFilter === 'По жанру'"
+         (click)="filter_by('По жанру')"
+    >
       По жанру
     </div>
-    <div class="filters__container__item mr-8 zoom filters__container__item-active">
+    <div class="filters__container__item mr-8 zoom"
+         [class.filters__container__item-active]="activeFilter === 'По названию'"
+         (click)="filter_by('По названию')"
+    >
       По названию
     </div>
   </div>
@@ -55,7 +72,7 @@
       </div>
       <div class="main__book__card"
            [class.hover_img]="hoverIndex === i "
-           (click)="switchFullCard(true); fillBook({name: item})"
+           (click)="switchForm(true, 'patch'); fillBook(item, 'patch')"
       >
         <div class="main__book__card__cover">
           <p class="book-name mb-8">{{item.name}}</p>
