@@ -10,10 +10,18 @@ export class BooksService {
   }
 
   getGenres() {
-    return this.http.get('/genre', {observe: 'response'})
+    return this.http.get('/genre', {observe: 'response'}).toPromise()
   }
 
   createBook(book: any) {
-    return this.http.post('/books', book, {observe: 'response'})
+    return this.http.post('/books', book).toPromise()
+  }
+
+ getBooks() {
+    return this.http.get('/books', {observe: 'response'}).toPromise();
+  }
+
+  deleteBook(id: number) {
+    return this.http.delete('books/' + id, {observe: 'response'}).toPromise()
   }
 }

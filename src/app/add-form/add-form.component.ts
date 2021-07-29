@@ -9,28 +9,42 @@ import {BooksService} from "../books.service";
 export class AddFormComponent implements OnInit {
   @Input() addFormActive: boolean = false
   @Output() switchAddForm = new EventEmitter()
+  @Output() getBooks = new EventEmitter()
+
   public book: any = {
-    name: '',
-    author: '',
-    date: null,
-    genreIds: [],
+    name: 'Book ' + String(Math.floor(Math.random() * 1000)),
+    author: 'Gevin Belson',
+    date: 1969,
+    genreIds: [1],
     description: ''
   }
+  public formSubmit = false
   public genres: any = []
-  constructor(private http: BooksService) { }
+  public submitMessage = ''
+
+  constructor(private http: BooksService) {
+  }
 
   close() {
     this.switchAddForm.emit(false)
+    this.formSubmit = false
   }
-  createBook(book: object) {
-    this.http.createBook(book).subscribe(response => {
-      console.log(response.status)
-    })
+
+  async createBook() {
+    try {
+      await this.http.createBook(this.book)
+    } catch (error) {
+    } finally {
+      await this.getBooks.emit()
+      this.book.name = 'Book ' + String(Math.floor(Math.random() * 1000))
+      this.formSubmit = true
+    }
+
   }
-  ngOnInit() {
-    this.http.getGenres().subscribe(response => {
-      this.genres = response.body
-    })
+
+  async ngOnInit() {
+    let kek = await this.http.getGenres()
+    this.genres = kek.body
   }
 
 }

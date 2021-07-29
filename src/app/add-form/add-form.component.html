@@ -2,44 +2,56 @@
 
   <div class="addFormContainer">
     <div class="addFormContainer__header">Добавить книгу</div>
-    <form>
-      {{book | json}}
+    <form (ngSubmit)="createBook()" #isFormOk="ngForm">
+      <div>
+      </div>
       <div class="formGroup">
         <label for="book-name"></label>
         <input type="text"
+               required
+               #name = 'ngModel'
                [(ngModel)]="book.name"
                id="book-name"
                name="name"
                placeholder="Название книги">
+        <div class="formGroup__hint" [hidden]="name.valid || name.pristine">Обязательное поле</div>
       </div>
 
       <div class="formGroup">
         <label for="book-author"></label>
         <input type="text"
+               required
+               #author = 'ngModel'
                [(ngModel)]="book.author"
                id="book-author"
                name="author"
                placeholder="Автор">
+        <div class="formGroup__hint" [hidden]="author.valid || author.pristine">Обязательное поле</div>
       </div>
 
       <div class="formGroup">
         <label for="book-date"></label>
         <input type="text"
+               required
+               #date = 'ngModel'
                [(ngModel)]="book.date"
                id="book-date"
                name="date"
                placeholder="Год издания">
+        <div class="formGroup__hint" [hidden]="date.valid || date.pristine">Обязательное поле</div>
       </div>
 
       <div class="formGroup">
         <label for="book-genres">Выберите жанры</label>
         <select multiple
+                required
                 id="book-genres"
+                #genresIds = 'ngModel'
                 [(ngModel)]="book.genreIds"
                 name="genreIds"
         >
-          <option *ngFor="let genre of genres">{{genre.name[0].toUpperCase() + genre.name.slice(1)}}</option>
-
+          <option [ngValue]="genre.id" *ngFor="let genre of genres">{{genre.name[0].toUpperCase() + genre.name.slice(1)}}</option>
+          <div class="formGroup__hint" [hidden]="genresIds.valid || genresIds.pristine">Обязательное поле</div>
         </select>
       </div>
 
@@ -52,9 +64,13 @@
                   placeholder="Описание"></textarea>
       </div>
 
-      <button type="submit" class="formBtn zoom mt-15 mr-15">Отправить</button>
-      <button class="formBtn zoom" (click)="close()">Закрыть</button>
+      <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
+      <button type="submit" class="formBtn zoom mt-15" [disabled]="!isFormOk.form.valid">Отправить</button>
+      <button class="formBtn zoom mt-15" type="reset">Очистить</button>
+      <button class="formBtn zoom mt-15" (click)="close()">Закрыть</button>
+      </div>
     </form>
+    <div *ngIf="formSubmit" class="success-alert">Книга создана</div>
     <br>
   </div>
 

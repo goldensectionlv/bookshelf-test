@@ -5,6 +5,7 @@
 
 <app-add-form
   [addFormActive]="addFormActive"
+  (getBooks)="getBooks()"
   (switchAddForm)="switchAddForm(false)"></app-add-form>
 
 <header class="header">
@@ -37,7 +38,7 @@
   <!--  карточка книги-->
   <div
     class="main__book zoom"
-    *ngFor="let item of array; let i = index"
+    *ngFor="let item of booksArray; let i = index;"
     (mouseenter)="hoverIndex = i"
     (mouseleave)="hoverIndex = -1"
 
@@ -46,6 +47,7 @@
       <div
         class="main__book__delete"
         *ngIf="hoverIndex === i"
+        (click)="deleteBook(item.id)"
       >
         <img src="assets/delete-outline.png"
              style="width: 15px; height: 15px" alt=""
@@ -56,10 +58,18 @@
            (click)="switchFullCard(true); fillBook({name: item})"
       >
         <div class="main__book__card__cover">
-          <p class="book-name mb-8">Чужак</p>
-          <p class="book-author mb-8">Макс Фрай</p>
-          <p class="book-year mb-8">1995</p>
-          <p class="book-genres">Фантастика</p>
+          <p class="book-name mb-8">{{item.name}}</p>
+          <p class="book-author mb-8">{{item.author}}</p>
+          <p class="book-year mb-8">{{item.date}}</p>
+          <div>
+            <span class="book-genres"
+                  *ngFor="let book_genre of item.genre; let i = index">
+              {{book_genre.name[0].toUpperCase() + book_genre.name.slice(1)}}<span
+              *ngIf="item.genre.length > 0 && i < item.genre.length -1">,
+            </span>
+            </span>
+          </div>
+
         </div>
 
       </div>

@@ -71,6 +71,12 @@ textarea {
 .formGroup {
   display: flex;
   flex-direction: column;
+  &__hint {
+    padding: 0 8px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    color: red;
+  }
 }
 
 .formBtn {
@@ -79,6 +85,7 @@ textarea {
   padding: 15px;
   border-radius: 30px;
   border: 1px solid rgba(0, 0, 0, .3);
+
   &:hover {
     font-weight: bold;
   }
@@ -92,3 +99,19 @@ textarea {
   margin-right: 15px;
 }
 
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.success-alert {
+  margin-top: 15px;
+  padding: 15px;
+  width: 100%;
+  text-align: center;
+  background-color: rgb(222, 252, 216);
+  border-radius: 15px;
+}

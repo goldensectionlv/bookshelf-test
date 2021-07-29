@@ -7,28 +7,54 @@ import {BooksService} from "./books.service";
   styleUrls: ['./app.component.scss'],
   providers: [BooksService]
 })
-export class AppComponent implements OnInit{
-  array: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+export class AppComponent implements OnInit {
+  booksArray: any = []
   hoverIndex: number = -1
   fullBookCardActive: boolean = false
-  addFormActive: boolean = true
+  addFormActive: boolean = false
   book: object = {name: 'book'}
+
   constructor(private http: BooksService) {
   }
+
   switchFullCard(statement: boolean) {
     if (statement) document.documentElement.style.overflow = 'hidden'
     else document.documentElement.style.overflow = 'auto'
     this.fullBookCardActive = statement
   }
+
   switchAddForm(statement: boolean) {
     if (statement) document.documentElement.style.overflow = 'hidden'
     else document.documentElement.style.overflow = 'auto'
     this.addFormActive = statement
   }
+
   fillBook(book: object) {
     this.book = book
   }
-  ngOnInit() {
+
+  async deleteBook(id: number) {
+    console.log(typeof id, id)
+    try {
+      await this.http.deleteBook(id)
+    } catch (error) {
+    } finally {
+      await this.getBooks()
+    }
+
+
+
+  }
+
+  async getBooks() {
+    let kek = await this.http.getBooks()
+    this.booksArray = kek.body
+    console.log(kek)
+
+  }
+
+  async ngOnInit() {
+    await this.getBooks()
 
   }
 
