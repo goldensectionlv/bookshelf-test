@@ -1,0 +1,64 @@
+<div class="addFrom" *ngIf="addFormActive">
+
+  <div class="addFormContainer">
+    <div class="addFormContainer__header">Добавить книгу</div>
+    <form>
+      {{book | json}}
+      <div class="formGroup">
+        <label for="book-name"></label>
+        <input type="text"
+               [(ngModel)]="book.name"
+               id="book-name"
+               name="name"
+               placeholder="Название книги">
+      </div>
+
+      <div class="formGroup">
+        <label for="book-author"></label>
+        <input type="text"
+               [(ngModel)]="book.author"
+               id="book-author"
+               name="author"
+               placeholder="Автор">
+      </div>
+
+      <div class="formGroup">
+        <label for="book-date"></label>
+        <input type="text"
+               [(ngModel)]="book.date"
+               id="book-date"
+               name="date"
+               placeholder="Год издания">
+      </div>
+
+      <div class="formGroup">
+        <label for="book-genres">Выберите жанры</label>
+        <select multiple
+                id="book-genres"
+                [(ngModel)]="book.genreIds"
+                name="genreIds"
+        >
+          <option *ngFor="let genre of genres">{{genre.name[0].toUpperCase() + genre.name.slice(1)}}</option>
+
+        </select>
+      </div>
+
+      <div class="formGroup">
+        <label for="book-description"></label>
+        <textarea type="text"
+                  [(ngModel)]="book.description"
+                  id="book-description"
+                  name="description" rows="6"
+                  placeholder="Описание"></textarea>
+      </div>
+
+      <button type="submit" class="formBtn zoom mt-15 mr-15">Отправить</button>
+      <button class="formBtn zoom" (click)="close()">Закрыть</button>
+    </form>
+    <br>
+  </div>
+
+  <div>
+
+  </div>
+</div>
