@@ -116,7 +116,7 @@
 
 </main>
 
-<div class="pagiContainer" *ngIf="pageCount.length > 1">
+<div class="pagiContainer">
   <div class="pagiContainer__pagination zoom"
        [class.pagiContainer__pagination_active]="pageNumber === page"
        *ngFor="let page of pageCount"
