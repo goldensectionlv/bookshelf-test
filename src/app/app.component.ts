@@ -17,6 +17,11 @@ export class AppComponent implements OnInit {
 
   fullBookActive: boolean = false
 
+  pageNumber = 0
+  size = 10
+  pageCount = []
+  currentPageArray: any = []
+
   public alphabet = "abcdefghijklmnopqrstuvwxyz"
 
   constructor(private http: BooksService) {
@@ -31,6 +36,17 @@ export class AppComponent implements OnInit {
 
   }
 
+  paginatedData(pageNumber: number) {
+    this.currentPageArray = []
+    // @ts-ignore
+    this.pageCount = Array(Math.ceil(this.booksArray.length / this.size)).fill().map((x: any,i: any) => i)
+    this.pageNumber = pageNumber
+    let start = pageNumber * this.size
+    let end = start + this.size
+    this.currentPageArray = this.booksArray.slice(start, end)
+
+    console.log(this.pageCount)
+  }
   randomInt(min: number, max: number) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -70,6 +86,7 @@ export class AppComponent implements OnInit {
     else if (byWhat === 'По жанру') this.booksArray.sort((a: any, b: any) => a.genre[0].name.localeCompare(b.genre[0].name));
     else if (byWhat === 'По названию') this.booksArray.sort((a: any, b: any) => a.name.localeCompare(b.name));
     this.activeFilter = byWhat
+    this.paginatedData(0)
   }
 
   async deleteBook(id: number) {
@@ -85,7 +102,6 @@ export class AppComponent implements OnInit {
     let response = await this.http.getBooks()
     this.booksArray = response.body
     this.filter_by(this.activeFilter)
-    console.log(this.booksArray)
   }
 
   async ngOnInit() {

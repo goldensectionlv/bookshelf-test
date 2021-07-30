@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {BooksService} from "../books.service";
+import {EmailValidator} from "@angular/forms";
 
 @Component({
   selector: 'app-add-form',
@@ -13,7 +14,6 @@ export class FormComponent implements OnInit {
   @Output() randomFillBookForCreate = new EventEmitter()
   @Output() switchForm = new EventEmitter()
   @Output() getBooks = new EventEmitter()
-
   public formSubmit = false
   public genres: any = []
 
@@ -43,8 +43,8 @@ export class FormComponent implements OnInit {
     console.log(this.inputBook)
     try {
       await this.http.updateBook(this.inputBook)
-    } catch (error) {}
-   finally {
+    } catch (error) {
+    } finally {
       await this.getBooks.emit()
       this.formSubmit = true
     }

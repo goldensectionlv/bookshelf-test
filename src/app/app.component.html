@@ -1,6 +1,7 @@
 <app-add-form
   [addFormActive]="fullBookActive"
   formType="patch"
+
   [inputBook]="book"
   (getBooks)="getBooks()"
   (switchForm)="switchForm(false, 'patch')"></app-add-form>
@@ -8,6 +9,7 @@
 <app-add-form
   formType="create"
   [inputBook]="book"
+
   [addFormActive]="addFormActive"
   (randomFillBookForCreate)="fillBook({}, 'create')"
   (getBooks)="getBooks()"
@@ -55,7 +57,7 @@
   <!--  карточка книги-->
   <div
     class="main__book zoom"
-    *ngFor="let item of booksArray; let i = index;"
+    *ngFor="let item of currentPageArray; let i = index;"
     (mouseenter)="hoverIndex = i"
     (mouseleave)="hoverIndex = -1"
 
@@ -86,10 +88,19 @@
             </span>
             </span>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
+
 </main>
+
+<div class="pagiContainer">
+  <div class="pagiContainer__pagination zoom"
+       [class.pagiContainer__pagination_active]="pageNumber === page"
+       *ngFor="let page of pageCount"
+       (click)="paginatedData(page)"
+  >
+    {{page + 1}}
+  </div>
+</div>
