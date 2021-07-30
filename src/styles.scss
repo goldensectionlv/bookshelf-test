@@ -9,6 +9,40 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+
+.book-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.book-author {
+  font-size: 14px;
+  color: #1577EA;
+}
+
+.book-year {
+  font-size: 14px;
+}
+
+.book-genres {
+  font-size: 14px;
+  color: #808080;
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.mr-8 {
+  margin-right: 8px;
+}
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
 .zoom {
   -ms-transform: scale(1.00); /* IE 9 */
   -webkit-transform: scale(1.00); /* Safari 3-8 */

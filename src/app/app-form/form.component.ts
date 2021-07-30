@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {BooksService} from "../books.service";
-import {EmailValidator} from "@angular/forms";
 
 @Component({
   selector: 'app-add-form',
@@ -26,7 +25,6 @@ export class FormComponent implements OnInit {
     this.formSubmit = false
   }
 
-
   async createBook() {
     try {
       await this.http.createBook(this.inputBook)
@@ -39,8 +37,6 @@ export class FormComponent implements OnInit {
   }
 
   async editBook() {
-    // editing
-    console.log(this.inputBook)
     try {
       await this.http.updateBook(this.inputBook)
     } catch (error) {
@@ -53,9 +49,8 @@ export class FormComponent implements OnInit {
 
 
   async ngOnInit() {
-    let kek = await this.http.getGenres()
-    this.genres = kek.body
-    // this.book.author = this.randomLetter().toUpperCase() + 'Gevin Belson'
+    let response = await this.http.getGenres()
+    this.genres = response.body
   }
 
 }

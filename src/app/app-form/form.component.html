@@ -1,16 +1,29 @@
 <div class="addFrom" *ngIf="addFormActive">
 
   <div class="addFormContainer">
-    <div class="addFormContainer__header" *ngIf="formType === 'create'">Добавить книгу</div>
-    <div class="addFormContainer__header" *ngIf="formType === 'patch'">Редактировать книгу</div>
+    <div
+      class="addFormContainer__header"
+      *ngIf="formType === 'create'"
+    >
+      Добавить книгу
+    </div>
+    <div
+      class="addFormContainer__header"
+      *ngIf="formType === 'patch'"
+    >
+      Редактировать книгу
+    </div>
 
-    <form (ngSubmit)="formType === 'create' ? createBook() : editBook()" #isFormOk="ngForm">
+    <form
+      (ngSubmit)="formType === 'create' ? createBook() : editBook()"
+      #isFormOk="ngForm"
+    >
 
       <div class="formGroup">
         <label for="book-name"></label>
         <input type="text"
                required
-               #name = 'ngModel'
+               #name='ngModel'
                [(ngModel)]="inputBook.name"
                id="book-name"
                name="name"
@@ -22,7 +35,7 @@
         <label for="book-author"></label>
         <input type="text"
                required
-               #author = 'ngModel'
+               #author='ngModel'
                [(ngModel)]="inputBook.author"
                id="book-author"
                name="author"
@@ -34,7 +47,7 @@
         <label for="book-date"></label>
         <input type="text"
                required
-               #date = 'ngModel'
+               #date='ngModel'
                [(ngModel)]="inputBook.date"
                id="book-date"
                name="date"
@@ -47,13 +60,17 @@
         <select multiple
                 required
                 id="book-genres"
-                #genresIds = 'ngModel'
+                #genresIds='ngModel'
                 [(ngModel)]="inputBook.genreIds"
                 name="genreIds"
         >
-          <option [ngValue]="genre.id" *ngFor="let genre of genres">{{genre.name[0].toUpperCase() + genre.name.slice(1)}}</option>
-          <div class="formGroup__hint" [hidden]="genresIds.valid || genresIds.pristine">Обязательное поле</div>
+          <option
+            [ngValue]="genre.id"
+            *ngFor="let genre of genres">
+            {{genre.name[0].toUpperCase() + genre.name.slice(1)}}
+          </option>
         </select>
+        <div class="formGroup__hint" [hidden]="genresIds.valid || genresIds.pristine">Обязательное поле</div>
       </div>
 
       <div class="formGroup">
@@ -66,16 +83,35 @@
       </div>
 
       <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
-      <button type="submit" class="formBtn zoom mt-15" [disabled]="!isFormOk.form.valid">{{formType === 'create' ? 'Отправить' : 'Обновить'}}</button>
-      <button class="formBtn zoom mt-15" type="reset" *ngIf="formType === 'create'">Очистить</button>
-      <button class="formBtn zoom mt-15" (click)="close(formType)">Закрыть</button>
+
+        <button
+          type="submit"
+          class="formBtn zoom mt-15"
+          [disabled]="!isFormOk.form.valid">
+          {{formType === 'create' ? 'Отправить' : 'Обновить'}}
+        </button>
+
+        <button class="formBtn zoom mt-15"
+                type="reset" *ngIf="formType === 'create'"
+        >
+          Очистить
+        </button>
+        <button
+          class="formBtn zoom mt-15"
+          (click)="close(formType)"
+        >
+          Закрыть
+        </button>
       </div>
     </form>
-    <div *ngIf="formSubmit" class="success-alert">{{formType === 'create' ? 'Книга создана' : 'Книга обновлена'}}</div>
+    <div
+      *ngIf="formSubmit"
+      class="success-alert"
+    >
+      {{formType === 'create' ? 'Книга создана' : 'Книга обновлена'}}
+    </div>
     <br>
   </div>
-
   <div>
-
   </div>
 </div>

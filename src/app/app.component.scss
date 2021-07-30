@@ -12,12 +12,30 @@
     font-size: 24px;
     font-weight: normal;
   }
+  &__buttons {
+    display: flex;
+    align-items: center;
+    &__select {
+      margin-right: 30px;
+      font-size: 14px;
+      & label {
+        margin-right: 6px;
+      }
+      & select {
+        font-size: 14px;
+        border-radius: 8px;
+        padding: 6px 2px 6px 6px;
 
-  &__button {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+      }
+
+    }
+    &__button {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
   }
+
 }
 
 .filters {
@@ -131,33 +149,6 @@
   &__pagination_active {
     color: red
   }
-}
-
-.book-name {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.book-author {
-  font-size: 14px;
-  color: #1577EA;
-}
-
-.book-year {
-  font-size: 14px;
-}
-
-.book-genres {
-  font-size: 14px;
-  color: #808080;
-}
-
-.mb-8 {
-  margin-bottom: 8px;
-}
-
-.mr-8 {
-  margin-right: 8px;
 }
 
 @media (max-width: 1260px) {

@@ -9,10 +9,13 @@ import {BooksService} from "./books.service";
 })
 export class AppComponent implements OnInit {
   booksArray: any = []
+
   hoverIndex: number = -1
 
   addFormActive: boolean = false
+
   book: any
+
   activeFilter = 'По названию'
 
   fullBookActive: boolean = false
@@ -22,13 +25,12 @@ export class AppComponent implements OnInit {
   pageCount = []
   currentPageArray: any = []
 
-  public alphabet = "abcdefghijklmnopqrstuvwxyz"
+  alphabet = "abcdefghijklmnopqrstuvwxyz"
 
   constructor(private http: BooksService) {
   }
 
   switchForm(statement: boolean, formType: string) {
-    console.log(formType)
     if (statement) document.documentElement.style.overflow = 'hidden'
     else document.documentElement.style.overflow = 'auto'
     if (formType === 'create') this.addFormActive = statement
@@ -39,14 +41,13 @@ export class AppComponent implements OnInit {
   paginatedData(pageNumber: number) {
     this.currentPageArray = []
     // @ts-ignore
-    this.pageCount = Array(Math.ceil(this.booksArray.length / this.size)).fill().map((x: any,i: any) => i)
+    this.pageCount = Array(Math.ceil(this.booksArray.length / this.size)).fill().map((x: any, i: any) => i)
     this.pageNumber = pageNumber
     let start = pageNumber * this.size
     let end = start + this.size
     this.currentPageArray = this.booksArray.slice(start, end)
-
-    console.log(this.pageCount)
   }
+
   randomInt(min: number, max: number) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -56,7 +57,6 @@ export class AppComponent implements OnInit {
   randomLetter() {
     return this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
   }
-
 
   fillBook(book: any, formType: string) {
     this.book = {}

@@ -17,11 +17,31 @@
 
 <header class="header">
   <h1 class="header__logo">Bookshelf</h1>
-  <img src="assets/plus-circle-outline.png"
-       class="header__button zoom"
-       alt="add"
-       (click)="fillBook({}, 'create'); switchForm(true, 'create')"
-  >
+
+  <div class="header__buttons">
+    <div class="header__buttons__select">
+      <label for="pageSize">Выводить по</label>
+      <select
+        name=""
+        id="pageSize"
+        [(ngModel)]="size"
+        [value]="size"
+        (change)="paginatedData(0)"
+      >
+        <option [value]="10">10</option>
+        <option [value]="20">20</option>
+        <option [value]="30">30</option>
+        <option [value]="40">40</option>
+        <option [value]="50">50</option>
+      </select>
+    </div>
+
+    <img src="assets/plus-circle-outline.png"
+         class="header__buttons__button zoom"
+         alt="add"
+         (click)="fillBook({}, 'create'); switchForm(true, 'create')"
+    >
+  </div>
 </header>
 
 <section class="filters">
@@ -74,7 +94,8 @@
       </div>
       <div class="main__book__card"
            [class.hover_img]="hoverIndex === i "
-           (click)="switchForm(true, 'patch'); fillBook(item, 'patch')"
+           (click)="switchForm(true, 'patch');
+           fillBook(item, 'patch')"
       >
         <div class="main__book__card__cover">
           <p class="book-name mb-8">{{item.name}}</p>
